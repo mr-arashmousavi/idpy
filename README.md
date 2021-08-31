@@ -1,22 +1,22 @@
-# درگاه پرداخت idpy
+# Idpay payment gateway 
 
-از این کتاب خانه میتوانید در برنامه خود استفاده کنید و به سرعت درخواست های خود را به درگاه ارسال کنید 
 
-## نصب 
+You can use this library in your program and send your requests to the portal quickly
+
+## Install 
 
 ```bash
 npm install idpy
 ```
 
-## کانفیگ
+## Config
 
 ```js
 const Idpy = require("idpy")
 const payment = new Idpy();
 ```
 
-
-## ایجاد تراکنش 
+## Create a transaction
 
 ```js
 payment.createTransaction(
@@ -48,9 +48,9 @@ payment.createTransaction(
 
 
 
-### پاسخ 
-زمان ارسال اطلاعات بالا به درگاه اطلاعات زیر دریافت میشود 
+### Response 
 
+The time of sending the above information to the following information portal is received
 
 
 ```json
@@ -67,9 +67,8 @@ payment.createTransaction(
  link|string|Portal link|
  
 
+In case of error, the answer is as follows
 
-
-در صورت خطا پاسخ به این شکل میباشه
 ```json
 
 {
@@ -79,18 +78,15 @@ payment.createTransaction(
 ```
 
 
-## بازگشت به سایت پذیرنده
-
-بعد از اتمام عملیات پرداخت، درصورتیکه پرداخت با موفقیت انجام شده باشد، پرداخت کننده به آدرسی که پذیرنده در callback مشخص کرده بود منتقل می‌شود.
-
-همچنین پارامترهای زیر به آدرس callback تعریف شده در مرحله ایجاد تراکنش با توجه به تنظیمات وب سرویس در داشبورد آیدی پی تحت عنوان روش بازگشت پس از پرداخت به دو روش POST (Post form) یا GET (Query String) ارسال می شوند.
+## Return to the acceptor site
 
 
+After the payment is completed, if the payment is successful, the payer will be transferred to the address specified by the acceptor in the callback.
+
+Also, the following parameters are sent to the callback address defined in the transaction creation stage according to the web service settings in the IDP dashboard under the method of return after payment in two ways: POST (Post form) or GET (Query String).
 
 
-
-پارامترهای ارسالی با روش POST
-
+### Parameters submitted by POST method
 
 
 
@@ -106,8 +102,8 @@ cart_no|string|cart number from format 1234******123456
 hashed_cart_no|string|cart number hash by format SHA-256
 date|timestamp|time of transaction
 
-پارامترهای ارسالی با روش GET
 
+### Parameters submitted by GET method
 
 
 parament|type|description
@@ -118,13 +114,11 @@ id|string|id Unique
 order_id|string|id order
 
 
-
-## تایید تراکنش
-
+## Transaction confirmation
 
 
-بعد از دریافت اطلاعات به سایت پذیرنده و اعتبار سنجی اطلاعات توسط پذیرنده، پذیرنده باید تراکنش را تایید کند تا پرداخت بصورت سیستمی تکمیل شود و از بازگشت پول به پرداخت کننده جلوگیری شود.
 
+After receiving the information on the acceptor's site and validating the information by the acceptor, the acceptor must confirm the transaction to complete the payment systematically and prevent the return of money to the payer.
 
 ```js
  payment.validTransaction(
@@ -143,7 +137,7 @@ order_id|string|id order
 
 
 
-پاسخ
+### Response
 
 
 ```JSON
@@ -168,6 +162,8 @@ order_id|string|id order
 ```
 
 
+### Confirmation error
+
 
 parament|type|description
 -----|-----|-----
@@ -179,7 +175,7 @@ payment|object|Transaction payment information
 verify|object|Transaction verify information
 
 
-### خطا در تایید 
+
 
 ```JSON
 {
@@ -188,19 +184,17 @@ verify|object|Transaction verify information
 }
 ```
 
-نکته
-- بعد از پرداخت تراکنش توسط پرداخت کننده، تراکنش باید ظرف مدت حداکثر 10 دقیقه تایید شود. در غیر اینصورت مبلغ به کارت پرداخت کننده برگردانده خواهد شد.
+### tip
 
-- هت جلوگیری از دوبار مصرف شدن یک پرداخت (Double Spending)، پذیرنده موظف است کلیدهای منحصر بفردی که از طریق API آیدی پی دریافت می‌کند را (مثل id و track_id) در دیتابیس خود ذخیره کند و از یکتا بودن آنها اطمینان حاصل فرماید.
-توجه داشته باشید که ممکن است یک مشتری رسید پرداخت آیدی پی را ذخیره کند و برای یک خرید دیگر از آن استفاده کند.
-مسئولیت بررسی و شناسایی Double Spending کاملا به عهده پذیرنده می‌باشد.
+- After payment of the transaction by the payer, the transaction must be confirmed within a maximum of 10 minutes. Otherwise the amount will be returned to the payer's card.
 
+To prevent a double spending, the acceptor is required to store the unique keys it receives via the IDP API (such as id and track_id) in its database and ensure that they are unique.
+Note that a customer may save the IDP payment receipt and use it for another purchase.
+Double Spending is fully responsible for reviewing and identifying Double Spending.
 
+## Inquiry about transaction status
 
-
-## استعلام وضعیت تراکنش
-
-با استفاده از آدرس زیر می‌توانید آخرین وضعیت یک تراکنش را دریافت نمایید.
+Using the following address, you can get the latest status of a transaction.
 
 ```JS
  payment
@@ -212,7 +206,7 @@ verify|object|Transaction verify information
       );
 ```
 
-### پاسخ 
+### Response
 
 
 
@@ -269,10 +263,9 @@ settlement|object|Transaction deposit information
 ```
 
 
-## اطلاعات تماس 
-email : mr.arashmousavi@yahoo.com
+## Contacts
 
-tel : 0901520756
+email : mr.arashmousavi@yahoo.com
 
 site : [arashmousavi.ir](https://arashmousavi.ir)
 
