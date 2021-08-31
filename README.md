@@ -7,6 +7,9 @@ You can use this library in your program and send your requests to the portal qu
 
 ```bash
 npm install idpy
+OR
+Copy index.js in Project Folder 
+
 ```
 
 ## Config
