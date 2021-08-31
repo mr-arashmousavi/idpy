@@ -38,15 +38,15 @@ payment.createTransaction(
 
  name|type|req|description|
  -----|-----|-----|---|
- x-api-key|string|true|x-api-key|
- X-sandbox|int|true|0 or 1|
- order_id|string|true|" 111"|
- amount|string|true|"10000"|
- name|string|false|"آرش موسوی"|
- phone|string|false|"09015207562"|
- email|string|false|"mr.arashmousavi@yahoo.com "|
- desc|string|false|"این درگاه idpy میباشد "|
- callback|string|true|"idpy.ir"|
+ x-api-key|string|true|Unique 36-character authentication key|
+ X-sandbox|int|true|for Sand Box|
+ order_id|string|true|Acceptor order number|
+ amount|string|true|The desired amount in Rials The amount must be between 1,000 Rials to 500,000,000 Rials|
+ name|string|false|The name of the payer|
+ phone|string|false|Mobile payer|
+ email|string|false|Payer email|
+ desc|string|false|Transaction explanation|
+ callback|string|true|Return address to the recipient site|
 
 
 
